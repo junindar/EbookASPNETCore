@@ -1,0 +1,82 @@
+﻿@model Anggota
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-controller="Anggota" asp-action="Create" method="post">
+    <br />
+
+   
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Nama" class="control-label"></label>
+                <input asp-for="Nama" class="form-control" />
+                <span asp-validation-for="Nama" class="text-danger"></span>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+
+            </div>
+        </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label><input asp-for="JenisKelamin" value="L" type="radio"/>Laki-Laki</label><br/>
+            <label><input asp-for="JenisKelamin" value="P" type="radio"/>Perempuan</label>
+        </div>
+        
+    </div>
+  
+  
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Alamat" class="control-label"></label>
+                <textarea asp-for="Alamat" class="form-control" ></textarea>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Agama" class="control-label"></label>
+                <select asp-for="Agama" asp-items="Model.ListAgama" class="form-control" ></select>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="checkbox">
+                <label>
+                    <input asp-for="Status" /> Status
+                </label>
+            </div>
+        </div>
+  
+    
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="EmailConfirm" class="control-label"></label>
+            <input asp-for="EmailConfirm" class="form-control" />
+            <span asp-validation-for="EmailConfirm" class="text-danger"></span>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+    
+    
+   
+</form>
+

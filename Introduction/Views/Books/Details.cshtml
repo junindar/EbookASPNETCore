@@ -1,0 +1,50 @@
+﻿@model Book
+
+@{
+    ViewData["Title"] = "Detail Book";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Judul)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Judul)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Penulis)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Penulis)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Penerbit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Penerbit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Deskripsi)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Deskripsi)
+        </dd>
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+       
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

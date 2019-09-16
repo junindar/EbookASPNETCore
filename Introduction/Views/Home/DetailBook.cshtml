@@ -1,0 +1,19 @@
+﻿@model Book;
+@{
+    ViewData["Title"] = "Detail Buku";
+}
+<h2>@ViewBag.Title</h2>
+<div class="thumbnail">
+    <div class="row">
+        <div class="col-md-4">
+            <img alt="@Model.Judul" src="@Model.Gambar" style="height: 360px;width: 300px" />
+        </div>
+        <div class="col-md-8">
+            <h3 class="text-danger bg-dark">@Model.Judul</h3>
+            <h4 class="text-success">@Model.Penulis</h4>
+            <h4 class="text-success">@Model.Penerbit</h4>
+            <h5 style="text-align: justify">@Model.Deskripsi</h5>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Book>
+
+<h2>@ViewBag.Title</h2>
+@foreach (var book in Model)
+{
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <div class="thumbnail" style="height: 400px;" align="center"   >
+            <img src="@book.Gambar" alt="" style="height: 250px;width: 200px"/>
+       
+            <div class="caption">
+                <h5 style="text-align: center"><a asp-controller="Home" 
+                                                  asp-action="DetailBook"
+                                                  asp-route-id="@book.Id">@book.Judul</a></h5>
+                <h4 style="text-align: center">@book.Penulis</h4>
+                <h5 style="text-align: center">@book.Penerbit</h5>
+            </div>
+        </div>
+    </div>
+    
+}
+
+
