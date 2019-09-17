@@ -30,11 +30,13 @@ namespace Introduction.Migrations
 
                     b.Property<bool>("IsAvailable");
 
-                    b.Property<string>("Judul");
+                    b.Property<string>("Judul")
+                        .IsRequired();
 
                     b.Property<string>("Penerbit");
 
-                    b.Property<string>("Penulis");
+                    b.Property<string>("Penulis")
+                        .IsRequired();
 
                     b.Property<bool>("Status");
 
