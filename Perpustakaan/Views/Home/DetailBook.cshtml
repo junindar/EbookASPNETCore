@@ -1,0 +1,87 @@
+﻿@model Book;
+@{
+    ViewData["Title"] = "Detail Buku";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="/images/@Model.Gambar" height="360" width="300" />
+        </div>
+        <div class="col-md-8">
+            <h3 class="text-danger bg-dark">@Model.Judul</h3>
+            <h5 class="text-success">@Model.Penulis</h5>
+            <h5 class="text-success">@Model.Penerbit</h5>
+            <h5 class="text-success">@Model.Category.NamaCategory</h5>
+            <h5 style="text-align: justify">@Model.Deskripsi</h5>
+            @{
+                var strStatus = Model.Status ? "Buku Tersedia" : "Buku Tidak Tersedia";
+            }
+            <h4 class="text-danger bg-dark">@strStatus</h4>
+
+            @{
+                if (Model.Status)
+                {
+                    <p style="text-align: justify">
+                        <a class="btn btn-success" role="button"
+                           data-bukuId="@Model.Id"
+                           data-bukuImage="@Model.Gambar"
+                           data-bukuJudul="@Model.Judul"
+                           data-bukuPenulis="@Model.Penulis"
+                           style="margin-top: 10px;">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>  Add To Cart
+                        </a>
+
+                    </p>
+
+                }
+            }
+
+        </div>
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+
+
+    $(document)
+          .ready(function() {
+
+
+                $('.btn-success')
+                    .click(function() {
+
+                        var selectedProduct = {
+                            Id: $(this).attr('data-bukuId'),
+                            Gambar: $(this).attr('data-bukuImage'),
+                            Judul: $(this).attr('data-bukuJudul'),
+                            Penulis: $(this).attr('data-bukuPenulis')
+                        };
+
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("AddShoppingCart", "Home")',
+                            data: selectedProduct,
+                            success: function(response) {
+                                alert(response.message);
+                                $('#myOrder').text("My Order(" + response.jumlah + ")");
+                            },
+                            error: function(response) {
+                                alert(response.message);
+                            }
+
+                        });
+
+                    });
+
+
+          });
+</script>

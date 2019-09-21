@@ -1,131 +1,135 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+﻿@using Perpustakaan.Helpers
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
+@{
 
+    var books = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<List<Book>>("ShoppingCart");
+    var iChart = 0;
+    if (books != null && books.Any())
+    {
+        iChart = books.Count();
+    }
+}
 @if (User.IsInRole("Admin"))
 {
     <ul class="nav navbar-nav">
         <li>
-            @Html.ActionLink("Daftar Buku",
-                "", "Home")
+            <a asp-controller="Home" asp-action="DaftarBuku">Daftar Buku</a>
         </li>
         <li>
-            @Html.ActionLink("History Peminjaman Buku",
-                "", "Home")
+            <a asp-controller="Home" asp-action="DisplayHistory">History Peminjaman Buku</a>
         </li>
         <li>
-            @Html.ActionLink("My Order()",
-            "", "Home", null, new { id = "myOrder" })
-    </li>
-        
-</ul>
-<ul class="nav navbar-nav navbar-right">
+            <a id="myOrder"  asp-controller="Home" asp-action="DisplayMyOrder">My Order(@iChart)</a>
+        </li>
 
-    <li class="btn-group nav">
-        <button type="button" class="btn navbar-btn"
-                style="background-color:forestgreen">
-            @User.Identity.Name
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
 
-        </button>
-        <button type="button"
-                class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li>@Html.ActionLink("User", "", "")</li>
-            <li>@Html.ActionLink("Kategori Buku", "", "")</li>
-            <li>@Html.ActionLink("Buku", "", "")</li>
-            <li>@Html.ActionLink("Pengembalian Buku", "", "")</li>
-            <li>@Html.ActionLink("Change Password", "", "Login")</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@Url.Action("LogOff", "Login")">
-            Log off
-            <span class="glyphicon glyphicon-log-out"></span>
-        </a>
-    </li>
+        <li class="btn-group nav">
+            <button type="button" class="btn navbar-btn"
+                    style="background-color:forestgreen">
+                @User.Identity.Name
+
+            </button>
+            <button type="button"
+                    class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+
+                <li> <a asp-controller="Users" asp-action="Index">User</a></li>
+                <li> <a asp-controller="Categories" asp-action="Index">Kategori Buku</a></li>
+                <li> <a asp-controller="Books" asp-action="Index">Buku</a></li>
+                <li> <a asp-controller="Books" asp-action="DaftarPeminjam">Pengembalian Buku</a></li>
+                <li> <a asp-controller="Login" asp-action="ChangePassword">Change Password</a></li>
+
+            </ul>
+        </li>
+        <li>
+            <a asp-controller="Login" asp-action="LogOff">
+                Log off
+                <span class="glyphicon glyphicon-log-out"></span>
+            </a>
+        </li>
 
 
-</ul>
+    </ul>
 }
 else if (User.IsInRole("Staff"))
 {
     <ul class="nav navbar-nav">
         <li>
-            @Html.ActionLink("Daftar Buku",
-                "", "Home")
+            <a asp-controller="Home" asp-action="DaftarBuku">Daftar Buku</a>
         </li>
         <li>
-            @Html.ActionLink("History Peminjaman Buku",
-                "", "Home")
+            <a asp-controller="Home" asp-action="DisplayHistory">History Peminjaman Buku</a>
         </li>
         <li>
-            @Html.ActionLink("My Order()",
-                "", "Home", null, new { id = "myOrder" })
+            <a id="myOrder" asp-controller="Home" asp-action="DisplayMyOrder">My Order(@iChart)</a>
         </li>
+
     </ul>
-<ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right">
 
-    <li class="btn-group nav">
-        <button type="button" class="btn navbar-btn" style="background-color:forestgreen">@User.Identity.Name</button>
-        <button type="button" class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li>@Html.ActionLink("Buku", "", "")</li>
-            <li>@Html.ActionLink("Pengembalian Buku", "", "")</li>
-            <li>@Html.ActionLink("Change Password", "", "Login")</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@Url.Action("", "")">
-            Log off
-            <span class="glyphicon glyphicon-log-out"></span>
-        </a>
-    </li>
+        <li class="btn-group nav">
+            <button type="button" class="btn navbar-btn" style="background-color:forestgreen">@User.Identity.Name</button>
+            <button type="button" class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li> <a asp-controller="Home" asp-action="">Buku</a></li>
+                <li> <a asp-controller="Books" asp-action="DaftarPeminjam">Pengembalian Buku</a></li>
+                <li> <a asp-controller="Login" asp-action="ChangePassword">Change Password</a></li>
+            </ul>
+        </li>
+        <li>
+            <a asp-controller="Login" asp-action="LogOff">
+                Log off
+                <span class="glyphicon glyphicon-log-out"></span>
+            </a>
+        </li>
 
 
-</ul>
+    </ul>
 
 }
 else if (User.IsInRole("General"))
 {
     <ul class="nav navbar-nav">
         <li>
-            @Html.ActionLink("Daftar Buku",
-                "", "Home")
+            <a asp-controller="Home" asp-action="DaftarBuku">Daftar Buku</a>
         </li>
         <li>
-            @Html.ActionLink("History Peminjaman Buku",
-                "", "Home")
+            <a asp-controller="Home" asp-action="DisplayHistory">History Peminjaman Buku</a>
         </li>
         <li>
-            @Html.ActionLink("My Order()",
-                "", "Home", null, new { id = "myOrder" })
+            <a id="myOrder" asp-controller="Home" asp-action="DisplayMyOrder">My Order(@iChart)</a>
         </li>
+
     </ul>
 
-<ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right">
 
-    <li class="btn-group nav">
-        <button type="button" class="btn navbar-btn" style="background-color:forestgreen">@User.Identity.Name</button>
-        <button type="button" class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li>@Html.ActionLink("Change Password", "", "Login")</li>
-        </ul>
-    </li>
-    <li>
-        <a href="@Url.Action("", "")">
-            Log off
-            <span class="glyphicon glyphicon-log-out"></span>
-        </a>
-    </li>
+        <li class="btn-group nav">
+            <button type="button" class="btn navbar-btn" style="background-color:forestgreen">@User.Identity.Name</button>
+            <button type="button" class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li> <a asp-controller="Login" asp-action="ChangePassword">Change Password</a></li>
+            </ul>
+        </li>
+        <li>
+            <a asp-controller="Login" asp-action="LogOff">
+                Log off
+                <span class="glyphicon glyphicon-log-out"></span>
+            </a>
+        </li>
 
 
-</ul>
+    </ul>
 }

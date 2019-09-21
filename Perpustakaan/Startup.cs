@@ -45,6 +45,7 @@ namespace Perpustakaan
             services.AddDbContext<PustakaDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("pustakaConnection")));
             services.AddMvc();
+            services.AddSession();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
@@ -56,6 +57,7 @@ namespace Perpustakaan
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
+            app.UseSession();
             app.UseMvc(routes =>
                {
                    routes.MapRoute(

@@ -11,17 +11,35 @@ namespace Perpustakaan.Models
         {
             if (!context.Users.Any())
             {
-                var user= new Users();
-                user.Nama = "Administrator";
-                user.Status = true;
-                user.Role = "Admin";
-                user.Username = "Admin";
-                user.Password = "123";
-                context.Users.Add(user);
+
+                var users = new List<Users>
+                {
+                    new Users {Nama = "Administrator",
+                        Status = true,
+                        Role = "Admin",
+                        Username = "Admin",
+                        Password = "123"
+                    },
+                    new Users {Nama = "Junindar",
+                        Status = true,
+                        Role = "Staff",
+                        Username = "jun",
+                        Password = "123"
+                    },
+                    new Users {Nama = "Rian Ardana",
+                        Status = true,
+                        Role = "General",
+                        Username = "rian",
+                        Password = "123"
+                    },
+                };
+
+                users.ForEach(a => context.Users.Add(a));
                 context.SaveChanges();
             }
+           
 
-                if (!context.Categories.Any())
+            if (!context.Categories.Any())
             {
                 var categories = new List<Category>
                 {
@@ -94,12 +112,6 @@ namespace Perpustakaan.Models
 
                 context.SaveChanges();
             }
-
-
-
-
-
-
 
         }
     }

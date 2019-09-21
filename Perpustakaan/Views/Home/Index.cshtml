@@ -1,7 +1,30 @@
-﻿
+﻿@model List<Book>
 @{
-    ViewData["Title"] = "Index";
+    ViewBag.Title = "Home Page";
 }
 
-<h2>Index</h2>
 
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <p style="display:inline-block;position:relative; right:-56%;">
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div style="display:inline-block;position:relative; right:-68%;">
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <partial name="_GetBuku" model ="Model"/>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

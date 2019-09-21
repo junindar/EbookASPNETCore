@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PeminjamanVM>
+@{
+    ViewData["Title"] = "Daftar Peminjam";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model != null && Model.Any())
+{
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="tableOrder" class="table table-hover">
+                <tr>
+
+                    <th>Nama Peminjam</th>
+                    <th>Tanggal Pinjam</th>
+                    <th>Tanggal Kembali</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                @foreach (var pinjam in Model)
+                {
+                    <tr>
+
+                        <td>@pinjam.Peminjam</td>
+                        <td>@pinjam.OrderDate</td>
+                        <td>@pinjam.ReturnDate</td>
+                        <td>@pinjam.Status</td>
+                        <td>
+                            
+                            <a asp-action="DetailPeminjaman" asp-route-id="@pinjam.OrderId">Detail</a> 
+
+                           
+                        </td>
+
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+
+
+}
+else if (string.IsNullOrEmpty(ViewBag.Success))
+{
+    <div class="alert alert-warning" role="alert"> Daftar peminjaman buku tidak ada.</div>
+}
+else if (ViewBag.Success == "Error")
+{
+    <div class="alert alert-danger" role="alert"> Tidak dapat menampilkan daftar peminjaman buku. Silahkan hubungi Admin.</div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+}

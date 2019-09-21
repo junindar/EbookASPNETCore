@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Perpustakaan.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Judul)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Penulis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Penerbit)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Deskripsi)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gambar)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Judul)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Penulis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Penerbit)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Deskripsi)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <img src="/images/@item.Gambar" alt="" style="height: 60px;width: 58px"/>
+                @*@Html.DisplayFor(modelItem => item.Gambar)*@
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Category.NamaCategory)
+            </td>*@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

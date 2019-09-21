@@ -1,42 +1,43 @@
-﻿@using System
-@using Microsoft.AspNetCore.Mvc.Rendering
+﻿
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - SIM Perpustakaan</title>
-    
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="~/content/site.css" />
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.js"></script>
-  
-</head>
+  </head>
 <body>
 
-@RenderSection("scripts", required: false)
+@RenderSection("scripts", false)
   
-<div class="navbar navbar-inverse navbar-fixed-top" >
+<div class="navbar navbar-inverse navbar-fixed-top">
+    
+    @*detail sintaks lihat pada project lampiran*@
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" 
+            <button type="button" class="navbar-toggle"
                     data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @Html.ActionLink("SIM Perpustakaan", "Index", "Home", 
-                new {area = ""}, new {@class = "navbar-brand"})
+            
+            <a asp-controller="Home" asp-action="Index"
+               class="navbar-brand">SIM Perpustakaan</a>
+
         </div>
         <div class="navbar-collapse collapse">
-           
-            @Html.Partial("_Menu")
-          
+
+            <partial name="_Menu"/>
+
         </div>
-       
+
     </div>
-   
+
 </div>
 <div class="container body-content">
     @RenderBody()
@@ -50,5 +51,3 @@
 </body>
 </html>
 
-
-@*@RenderSection("Scripts", required: false)*@

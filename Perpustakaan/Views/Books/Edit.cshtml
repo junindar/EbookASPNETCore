@@ -1,0 +1,76 @@
+﻿@model Perpustakaan.Models.Book
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Judul" class="control-label"></label>
+                <input asp-for="Judul" class="form-control" />
+                <span asp-validation-for="Judul" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Penulis" class="control-label"></label>
+                <input asp-for="Penulis" class="form-control" />
+                <span asp-validation-for="Penulis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Penerbit" class="control-label"></label>
+                <input asp-for="Penerbit" class="form-control" />
+                <span asp-validation-for="Penerbit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Deskripsi" class="control-label"></label>
+                <textarea asp-for="Deskripsi" class="form-control"></textarea>
+                <span asp-validation-for="Deskripsi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gambar" class="control-label"></label>
+                <input type="file" name="FileToUpload" id="FileToUpload" onchange="show(this)" /><br />
+                <img id="user_img" src="/images/@Model.Gambar"  height="100" width="90" style="border: solid" />
+                <br />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script type="text/javascript">
+
+    function show(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Perpustakaan.Models;
 using Perpustakaan.ViewModels;
 
@@ -54,11 +56,9 @@ namespace Perpustakaan.Controllers
                             return View(model);
                         }
                     }
-                    else
-                    {
-                        ModelState.AddModelError("", "Username salah!");
-                        return View(model);
-                    }
+
+                    ModelState.AddModelError("", "Username salah!");
+                    return View(model);
                 }
             }
             catch (Exception ex)
@@ -70,16 +70,63 @@ namespace Perpustakaan.Controllers
 
         public async Task<IActionResult> LogOff()
         {
-
-            // Setting.  
+            HttpContext.Session.Clear();
             var authenticationManager = Request.HttpContext;
-
-            // Sign Out.  
             await authenticationManager.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-
             return RedirectToAction("Index", "Login");
         }
+
+
+        [Authorize]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordVM model)
+        {
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+
+                    var curUsername = User.Identity.Name;
+                    var user = await _context.Users.FirstOrDefaultAsync(u =>
+                        u.Username.ToLower().Equals(curUsername.ToLower()));
+                    if (user != null)
+                    {
+                        if (user.Password == model.OldPassword)
+                        {
+                            user.Password = model.NewPassword;
+                            await _context.SaveChangesAsync();
+                            ModelState.AddModelError("", "Password berhasil diganti.");
+
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Password lama salah.");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Username tidak dikenal.");
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+            return View();
+        }
+
+
+      
 
     }
 }

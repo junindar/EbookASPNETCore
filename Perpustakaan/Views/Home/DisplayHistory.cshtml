@@ -1,0 +1,61 @@
+﻿@model IEnumerable<HistoryVM>
+@{
+    ViewData["Title"] = "My History Order";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+@if (Model != null && Model.Any())
+{
+
+  
+    <div class="row">
+        <div class="col-md-12">
+            <table id="tableOrder" class="table table-hover">
+                <tr>
+                    <th></th>
+                    <th>Penulis</th>
+                    <th>Judul Buku</th>
+                    <th>Tanggal Pinjam</th>
+                    <th>Tanggal Kembali</th>
+                    <th>Statu Peminjaman</th>
+                    <th>Action</th>
+                </tr>
+                @foreach (var history in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="/images/@history.Gambar" height="60" width="58" />
+                        </td>
+                        <td>@history.Penulis</td>
+                        <td>@history.Judul</td>
+                        <td>@history.OrderDate</td>
+                        <td>@history.ReturnDate</td>
+                        <td>@history.Status</td>
+                        <td>
+                            
+                            <a asp-action="DetailBook" asp-route-id="@history.BukuId">Detail</a> 
+
+
+                        </td>
+
+                </tr>
+
+            }
+            </table>
+        </div>
+    </div>
+
+
+
+}
+else if (string.IsNullOrEmpty(ViewBag.Success))
+{
+    <div class="alert alert-warning" role="alert"> Tidak ada history.</div>
+}
+else if (ViewBag.Success == "Error")
+{
+    <div class="alert alert-danger" role="alert"> Tidak dapat menampilkan history. Silahkan hubungi Admin.</div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+}

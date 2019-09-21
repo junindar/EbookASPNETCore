@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PeminjamanDetailVM>
+@{
+    ViewData["Title"] = "DetailPeminjaman";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model != null && Model.Any())
+{
+    <form asp-action="DetailPeminjaman" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <table id="tableOrder" class="table table-hover">
+                    <tr>
+                        <th></th>
+                        <th>Penulis</th>
+                        <th>Judul Buku</th>
+                    </tr>
+                    @foreach (var buku in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="/images/@buku.Gambar" height="60" width="58" />
+                            </td>
+                            <td>@buku.Penulis</td>
+                            <td>@buku.Judul</td>
+
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" name="answer" value="Cancel" class="btn btn-secondary">Cancel</button>
+            @if (!Model.FirstOrDefault().Status)
+            {
+                <button type="submit" name="answer" value="Save" class="btn btn-primary">Kembalikan Buku</button>
+            }
+
+        </div>
+    
+    </form>
+}
+else if (string.IsNullOrEmpty(ViewBag.Success))
+{
+    <div class="alert alert-warning" role="alert"> Tidak ada data.</div>
+}
+else if (ViewBag.Success == "Error")
+{
+    <div class="alert alert-danger" role="alert"> Tidak dapat menyimpan. Silahkan hubungi Admin.</div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+}
+else if (ViewBag.Success == "Success")
+{
+    <div class="alert alert-success" role="alert">Berhasil.</div>
+
+}
+
+
